@@ -1,0 +1,20 @@
+kind: pod
+apiVersion: v1
+metadata:
+  name: pod-configmap
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    containerPort: 80
+    env:
+    - name: course
+      valueFrom:
+        configMapRefKey:
+          name: configmap
+          key: course
+      - name: trainer
+        valueFrom:
+          configMapKeyRef:
+            name: configmap
+            key: trainer

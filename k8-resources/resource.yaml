@@ -1,0 +1,22 @@
+kind: resource
+apiVersion: v1
+metadata:
+  name: resources
+  labels:
+    name: resources
+    env: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    containerPort: 80
+  - name: jenkins
+    image: jenkins
+    containerPort: 8080
+  resources:
+    request:
+      cpu: "100m"
+      memory: "128Mi"
+    limit:
+      cpu: "100m"
+      memory: "128Mi"

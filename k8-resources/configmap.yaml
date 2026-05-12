@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: configmap
+data:
+  course: "Aws with Devops"
+  trainer: "prasad chand"
+  duration: "120hrs"
+  
