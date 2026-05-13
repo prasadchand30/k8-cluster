@@ -1,0 +1,16 @@
+kind: service
+apiVersion: v1
+metadata:
+  name: service-pod-np
+spec:
+  type: NodePort
+  selector:
+    name: nginx
+    project: expense
+    component: frontend
+    environment: dev
+  ports:
+  - protocol: TCP
+    port: 80 #service port
+    containerPort: 80 #target port
+    nodePort: 32760 #NODE WILL OPEN THIS PORT

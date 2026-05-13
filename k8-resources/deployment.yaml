@@ -1,0 +1,25 @@
+kind: Deployment
+apiversion: apps/v1
+metadata:
+  name: nginx
+  labels:
+    app: frontend
+    environmentg: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+      environmentg: dev
+      tieer: web
+  template:
+    metadata:
+      labels:
+        app: frontend
+        environmentg: dev
+        tieer: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:stable-perl
+        containerPort: 80

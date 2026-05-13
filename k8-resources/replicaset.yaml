@@ -1,0 +1,24 @@
+kind: ReplicaSet
+apiversion: apps/v1
+metadata:
+  name: nginx
+  labels:
+    component: frontend
+    app: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      component: frontend
+      app: nginx
+  templates:
+    metadata:
+      labels:
+        component: frontend
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        containerPort: 80
+  

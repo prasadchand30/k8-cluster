@@ -1,0 +1,14 @@
+kind: service
+apiVersion: v1
+metadata:
+  name: service-pod
+spec:
+  selector:
+    name: nginx
+    project: expense
+    component: frontend
+    environment: dev
+  ports:
+  - protocol: TCP
+    port: 80
+    containerPort: 80
