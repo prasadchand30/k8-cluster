@@ -1,0 +1,45 @@
+kind: Deployment
+apiversion: apps/v1
+metadata:
+  name: mysql
+  Namespace: expense
+  labels:
+    component: mysql
+    proejct: expense
+    tier: db
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: mysql
+      proejct: expense
+      tier: db
+  template:
+    metadata:
+      labels:
+        component: mysql
+        proejct: expense
+        tier: db
+    spec:
+      containers:
+      - name: mysql
+        image: joindevops/mysql:v1.0
+
+---
+
+kind: service
+apiversion: v1
+metadata:
+  name: mysql_service
+  Namespace: expense
+spec:
+  selector:
+    labels:
+      component: mysql
+      proejct: expense
+      tier: db
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+
