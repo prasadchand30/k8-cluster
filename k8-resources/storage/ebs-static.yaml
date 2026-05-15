@@ -1,0 +1,59 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: ebs-static
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 100gi
+  csi:
+    driver:
+    fsType:
+    volumeHandle:
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ebs-claim
+spec:
+  storageClassName: ""
+  volumeName: ebs-static
+  acccessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5gi
+---
+kind: pod
+apiVersion: v1
+metadata:
+  name: nginx
+  labels:
+    projct: expense
+    purpose: ebs
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: persistent-storage
+    PersistentVolumeClaim:
+      claim: ebs-claim
+---
+kind: service
+apiVersion: v1
+metadata:
+   name: nginx-lb
+spec:
+  type: LoadBalencer
+  selector:
+    purpose: ebs
+    project: expense
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
